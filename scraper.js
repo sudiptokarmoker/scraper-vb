@@ -24,7 +24,7 @@ var service = server.listen(port, function(request, response) {
 	
 	page.open(url_to_scrap[1], function (status) { 
 		page.includeJs('https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js', function() { 
-			page.evaluate(function(config){ 
+			page.evaluate(function(){ 
 				window.setTimeout(function(){
 					if(status == "success"){
 						var content = page.content;
