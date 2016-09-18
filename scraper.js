@@ -7,7 +7,7 @@ var service = server.listen(port, function(request, response) {
 	var webPage = require('webpage');
 	var page = webPage.create(), count = 0, forcedRenderTimeout, renderTimeout;
 	
-	page.close();
+	//page.close();
 	//page.settings.loadImages = false;
 	
 	var str = request.url;
