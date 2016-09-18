@@ -13,6 +13,7 @@ var service = server.listen(port, function(request, response) {
 	 
 	function doRender() {
 		var content = page.content;
+		response.statusCode = 200;
 		response.write(content);
 		response.close();
 		//console.log(content); 
@@ -40,6 +41,7 @@ var service = server.listen(port, function(request, response) {
 	page.open(url_to_scrap[1], function (status) {
 		if (status !== "success") {
 			//console.log('Unable to load url');
+			response.statusCode = 200;
 			response.write("fail");
 			response.close();
 			//phantom.exit();
