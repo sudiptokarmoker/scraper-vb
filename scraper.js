@@ -56,10 +56,11 @@ var service = server.listen(port, function(request, response) {
 	            //page.evaluate(function() {
 	                var content = page.content;
 			response.write(content); 
+			response.close();
 	            //});
 	        }, function() {
-	           console.log("All call end");
-	           response.close();
+	           //console.log("All call end");
+	           //response.close();
 	           //phantom.exit();
 	        });
 	    }
@@ -70,7 +71,7 @@ var service = server.listen(port, function(request, response) {
 	page.onError = function(msg, trace){
 		response.write("fail");
 		response.close();
-		phantom.exit();
+		//phantom.exit();
 	}
 });
 
