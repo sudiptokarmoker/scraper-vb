@@ -17,7 +17,7 @@ var service = server.listen(port, function(request, response) {
 		response.close();
 		//console.log(content); 
 		//page.render('twitter.png');
-		phantom.exit();
+		//phantom.exit();
 	}
 
 	page.onResourceRequested = function (req) {
@@ -41,7 +41,7 @@ var service = server.listen(port, function(request, response) {
 			//console.log('Unable to load url');
 			response.write("fail");
 			response.close();
-			phantom.exit();
+			//phantom.exit();
 		} else {
 			forcedRenderTimeout = setTimeout(function () {
 				//console.log(count);
