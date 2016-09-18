@@ -53,13 +53,14 @@ var service = server.listen(port, function(request, response) {
 	        // Wait for 'signin-dropdown' to be visible
 	        waitFor(function() {
 	            // Check in the page if a specific element is now visible
-	            page.evaluate(function() {
+	            //page.evaluate(function() {
 	                var content = page.content;
-					response.write(content); 
-	            });
+			response.write(content); 
+	            //});
 	        }, function() {
+	           console.log("All call end");
 	           response.close();
-	           phantom.exit();
+	           //phantom.exit();
 	        });
 	    }
 	});
