@@ -36,7 +36,7 @@ var service = server.listen(port, function(request, response) {
 		}
 	};
 
-	page.open(url, function (status) {
+	page.open(url_to_scrap[1], function (status) {
 		if (status !== "success") {
 			//console.log('Unable to load url');
 			response.write("fail");
