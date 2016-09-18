@@ -46,7 +46,7 @@ var service = server.listen(port, function(request, response) {
 			forcedRenderTimeout = setTimeout(function () {
 				//console.log(count);
 				doRender();
-				phantom.exit();
+				//phantom.exit();
 			}, maxRenderWait);
 		}
 	});
