@@ -7,7 +7,8 @@ var service = server.listen(port, function(request, response) {
 	var webPage = require('webpage');
 	var page = webPage.create(), count = 0, forcedRenderTimeout, renderTimeout;
 	
-	page.settings.loadImages = false;
+	page.close();
+	//page.settings.loadImages = false;
 	
 	var str = request.url;
 	//var url_to_scrap = str.split("/?url="); 
