@@ -49,6 +49,7 @@ var service = server.listen(port, function(request, response) {
 				//phantom.exit();
 			}, maxRenderWait);
 		}
+		page.close();
 	});
 	
 	
