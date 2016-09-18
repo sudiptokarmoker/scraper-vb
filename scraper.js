@@ -1,3 +1,16 @@
+/**
+ * Wait until the test condition is true or a timeout occurs. Useful for waiting
+ * on a server response or for a ui change (fadeIn, etc.) to occur.
+ *
+ * @param testFx javascript condition that evaluates to a boolean,
+ * it can be passed in as a string (e.g.: "1 == 1" or "$('#bar').is(':visible')" or
+ * as a callback function.
+ * @param onReady what to do when testFx condition is fulfilled,
+ * it can be passed in as a string (e.g.: "1 == 1" or "$('#bar').is(':visible')" or
+ * as a callback function.
+ * @param timeOutMillis the max amount of time to wait. If not specified, 3 sec is used.
+ */
+
 "use strict";
 function waitFor(testFx, onReady, timeOutMillis) {
     var maxtimeOutMillis = timeOutMillis ? timeOutMillis : 3000, //< Default Max Timout is 3s
@@ -23,92 +36,23 @@ function waitFor(testFx, onReady, timeOutMillis) {
 };
 
 
+var page = require('webpage').create();
 
-var webserver = require('webserver');
-var server = webserver.create();
-var webPage = require('webpage');
-var page = webPage.create();
-var port = require('system').env.PORT || 8080; // default back to 8080
-var service = server.listen(port, function(request, response) {
-	response.statusCode = 200; 
-	var str = request.url;
-	var url_to_scrap = str.split("/?url="); 
-	/*
-	page.open(url_to_scrap[1], function (status) {
-		if(status == "success"){
-			var content = page.content;
-			response.write(content);
-			response.close();
-		} 
-		else{
-			response.write("fail");
-			response.close();
-		}
-	});
-	 */
-	 
-
-	 
-	 
-	 
-	page.open(url_to_scrap[1], function (status) {
-	    // Check for page load success
-	    if (status !== "success") {
-        	response.write("fail");
-			response.close();
-	    } else {
-	        // Wait for 'signin-dropdown' to be visible
-	        waitFor(function() {
-	            // Check in the page if a specific element is now visible
-	            //page.evaluate(function() {
-	                var content = page.content;
-			response.write(content); 
-			response.close();
-	            //});
-	        }, function() {
-	           //console.log("All call end");
-	           //response.close();
-	           //phantom.exit();
-	        });
-	    }
-	});
-	
-	
-	// page or error handler //
-	page.onError = function(msg, trace){
-		response.write("fail");
-		response.close();
-		//phantom.exit();
-	}
+// Open Twitter on 'sencha' profile and, onPageLoad, do...
+page.open("http://twitter.com/#!/sencha", function (status) {
+    // Check for page load success
+    if (status !== "success") {
+        console.log("Unable to access network");
+    } else {
+        // Wait for 'signin-dropdown' to be visible
+        waitFor(function() {
+            // Check in the page if a specific element is now visible
+            return page.evaluate(function() {
+                return $("#signin-dropdown").is(":visible");
+            });
+        }, function() {
+           console.log("The sign-in dialog should be visible now.");
+           phantom.exit();
+        });
+    }
 });
-
-/*
-var webserver = require('webserver');
-var server = webserver.create();
-var webPage = require('webpage');
-var page = webPage.create();
-var port = require('system').env.PORT || 8080; // default back to 8080
-var service = server.listen(port, function(request, response) {
-	response.statusCode = 200; 
-	var str = request.url;
-	var url_to_scrap = str.split("/?url="); 
-	
-	page.open(url_to_scrap[1], function (status) {
-		if(status == "success"){
-			var content = page.content;
-			response.write(content);
-			response.close();
-		} 
-		else{
-			response.write("fail");
-			response.close();
-		}
-	});
-	// page or error handler //
-	page.onError = function(msg, trace){
-		response.write("fail");
-		response.close();
-	}
-});
-
-*/
