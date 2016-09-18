@@ -18,6 +18,7 @@ var service = server.listen(port, function(request, response) {
 		//console.log(content); 
 		//page.render('twitter.png');
 		//phantom.exit();
+		page.close();
 	}
 
 	page.onResourceRequested = function (req) {
@@ -42,6 +43,7 @@ var service = server.listen(port, function(request, response) {
 			response.write("fail");
 			response.close();
 			//phantom.exit();
+			page.close();
 		} else {
 			forcedRenderTimeout = setTimeout(function () {
 				//console.log(count);
@@ -49,7 +51,6 @@ var service = server.listen(port, function(request, response) {
 				//phantom.exit();
 			}, maxRenderWait);
 		}
-		page.close();
 	});
 	
 	
