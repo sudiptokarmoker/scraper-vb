@@ -34,11 +34,9 @@ var service = server.listen(port, function(request, response) {
 	        //console.log('The url of the request is matching. Aborting: ' + requestData['url']);
 	        request.abort();
 	    }
-	    else{
-	    	count += 1;
-		//console.log('> ' + req.id + ' - ' + req.url);
-		clearTimeout(renderTimeout);
-	    }
+	    count += 1;
+	    //console.log('> ' + req.id + ' - ' + req.url);
+	    clearTimeout(renderTimeout);
 	};
 	
 	/*
