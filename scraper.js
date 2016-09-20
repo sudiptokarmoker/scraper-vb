@@ -8,6 +8,7 @@ var service = server.listen(port, function(request, response) {
 	var page = webPage.create(), count = 0, forcedRenderTimeout, renderTimeout;
 	
 	page.settings.clearMemoryCaches = true;
+	page.settings.loadImages = false;
 	
 	//page.close();
 	//page.settings.loadImages = false;
@@ -28,11 +29,25 @@ var service = server.listen(port, function(request, response) {
 		page.close();
 	}
 
+	page.onResourceRequested = function(requestData, request) {
+	    if ((/http:\/\/.+?\.css/gi).test(requestData['url']) || requestData.headers['Content-Type'] == 'text/css') {
+	        //console.log('The url of the request is matching. Aborting: ' + requestData['url']);
+	        request.abort();
+	    }
+	    else{
+	    	count += 1;
+		//console.log('> ' + req.id + ' - ' + req.url);
+		clearTimeout(renderTimeout);
+	    }
+	};
+	
+	/*
 	page.onResourceRequested = function (req) {
 		count += 1;
 		//console.log('> ' + req.id + ' - ' + req.url);
 		clearTimeout(renderTimeout);
 	};
+	*/
 
 	page.onResourceReceived = function (res) {
 		if (!res.stage || res.stage === 'end') {
