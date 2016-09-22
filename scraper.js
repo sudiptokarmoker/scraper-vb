@@ -89,6 +89,7 @@ var service = server.listen(port, function(request, response) {
 		}
 	});
 	
+	/*
 	page.onError = function(msg, trace){
 		response.write("fail");
 		response.close();
@@ -98,7 +99,7 @@ var service = server.listen(port, function(request, response) {
 		  }, 1);
 		}, 1000);
 	}
-	
+	*/
 	
 	/*
 	page.open(url_to_scrap[1], function (status) {
