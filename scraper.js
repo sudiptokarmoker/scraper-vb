@@ -8,7 +8,7 @@ var service = server.listen(port, function(request, response) {
 	var page = webPage.create(), count = 0, forcedRenderTimeout, renderTimeout;
 	
 	page.settings.clearMemoryCaches = true;
-	page.settings.loadImages = false;
+	//page.settings.loadImages = false;
 	
 	//page.close();
 	//page.settings.loadImages = false;
@@ -26,14 +26,21 @@ var service = server.listen(port, function(request, response) {
 		//console.log(content); 
 		//page.render('twitter.png');
 		//phantom.exit();
-		page.close();
+		//page.close();
+		
+		setTimeout(function() {
+		  setTimeout(function() {
+		    page.close();
+		  }, 1);
+		}, 1000);
+		
 	}
 
 	page.onResourceRequested = function(requestData, request) {
-	    if ((/http:\/\/.+?\.css/gi).test(requestData['url']) || requestData.headers['Content-Type'] == 'text/css') {
+	    /*if ((/http:\/\/.+?\.css/gi).test(requestData['url']) || requestData.headers['Content-Type'] == 'text/css') {
 	        //console.log('The url of the request is matching. Aborting: ' + requestData['url']);
 	        request.abort();
-	    }
+	    }*/
 	    count += 1;
 	    //console.log('> ' + req.id + ' - ' + req.url);
 	    clearTimeout(renderTimeout);
@@ -64,7 +71,15 @@ var service = server.listen(port, function(request, response) {
 			response.write("fail");
 			response.close();
 			//phantom.exit();
-			page.close();
+			//page.close();
+			
+			setTimeout(function() {
+			  setTimeout(function() {
+			    page.close();
+			  }, 1);
+			}, 1000);
+			
+			
 		} else {
 			forcedRenderTimeout = setTimeout(function () {
 				//console.log(count);
@@ -74,7 +89,15 @@ var service = server.listen(port, function(request, response) {
 		}
 	});
 	
-	
+	page.onError = function(msg, trace){
+		response.write("fail");
+		response.close();
+		setTimeout(function() {
+		  setTimeout(function() {
+		    page.close();
+		  }, 1);
+		}, 1000);
+	}
 	
 	
 	/*
