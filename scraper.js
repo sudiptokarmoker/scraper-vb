@@ -63,7 +63,17 @@ var service = server.listen(port, function(request, response) {
 			}
 		}
 	};
-
+	
+	page.onLoadFinished = function(status) {
+	  	//response.statusCode = 200; 
+		response.close(); 
+		setTimeout(function() {
+		  setTimeout(function() {
+		    page.close();
+		  }, 1);
+		}, 1000);
+	};
+	
 	page.open(url_to_scrap[1], function (status) {
 		if (status !== "success") {
 			//console.log('Unable to load url');
