@@ -44,7 +44,8 @@ var service = server.listen(port, function(request, response) {
 			    page.close();
 			  }, 1);
 			}, 1000);
-		} else {
+		} 
+		else{
 			forcedRenderTimeout = setTimeout(function () {
 				doRender();
 			}, maxRenderWait);
