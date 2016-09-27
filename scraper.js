@@ -36,6 +36,7 @@ var service = server.listen(port, function(request, response) {
 	
 	page.open(url_to_scrap[1], function (status) {
 		console.log("Status CODE : " + response.statusCode);
+		console.log("Host : " + response.host);
 		if (status !== "success") {
 			response.statusCode = 200;
 			response.write("fail");
