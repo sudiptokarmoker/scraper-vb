@@ -5,7 +5,7 @@ var port = require('system').env.PORT || 8080; // default back to 8080
 var service = server.listen(port, function(request, response) {
 	var webPage = require('webpage');
 	var page = webPage.create(), count = 0, forcedRenderTimeout, renderTimeout;
-	//page.settings.clearMemoryCaches = true;
+	page.settings.clearMemoryCaches = true;
 	var str = request.url;
 	var resourceWait  = 300, maxRenderWait = 10000, url_to_scrap = str.split("/?url=");
 	function doRender() {
